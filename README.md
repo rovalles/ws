@@ -1,9 +1,11 @@
 ws
 ==
 
-Script takes you workspace with tab complete.
+Script takes you to your workspace and lets you tab complete.
 
 # Setup
 Add source ws.sh to bash file
 
-# type ws <TAB>
+# Run
+1. Change your worspace in the file
+2. type ws <TAB>
