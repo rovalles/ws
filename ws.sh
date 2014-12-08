@@ -56,7 +56,12 @@ function _complete(){
 }
 
 function ws(){
-    [ -n "$FOLDER" ] && cd "$FOLDER"
+    if [[ -n "$FOLDER" && "$FOLDER" != "$DIR" ]] ; then
+        cd "$FOLDER" 
+    else
+        cd "$DIR"
+    fi
+
     [ -n "$BRANCH" ] && git pull origin $BRANCH
     [ -n "$GRUNT" ] && grunt $GRUNT
 }
