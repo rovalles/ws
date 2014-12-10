@@ -1,5 +1,5 @@
 #!/bin/sh
-DIR=~/Git-Workspace/
+[ -n $DIR ] && DIR=~/Git-Workspace/
 
 FOLDER=""
 GRUNT=""
