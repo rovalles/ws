@@ -6,6 +6,16 @@ GRUNT=""
 PULL=""
 COMPREPLY=()
 
+function changeDirectory(){
+    local newFolder=$1
+    local default=$2
+    if [[ -n "$newFolder" && "$newFolder" != "$default" ]] ; then
+        cd "$newFolder" 
+    else
+        cd "$default"
+    fi
+}
+
 function listFolders(){
     local list=$(ls $DIR)
 
@@ -56,11 +66,7 @@ function _complete(){
 }
 
 function ws(){
-    if [[ -n "$FOLDER" && "$FOLDER" != "$DIR" ]] ; then
-        cd "$FOLDER" 
-    else
-        cd "$DIR"
-    fi
+    changeDirectory $FOLDER $DIR
 
     [ -n "$BRANCH" ] && git pull origin $BRANCH
     [ -n "$GRUNT" ] && grunt $GRUNT
