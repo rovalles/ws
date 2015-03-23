@@ -12,7 +12,7 @@ function changeDirectory(){
     if [[ -n "$newFolder" && "$newFolder" != "$default" ]] ; then
         cd "$newFolder" 
     else
-        cd "$default"
+        cd "$DIR"
     fi
 }
 
