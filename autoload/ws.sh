@@ -1,5 +1,4 @@
 #!/bin/sh
-[ -n $DIR ] && DIR=~/Git-Workspace/
 
 FOLDER=""
 
@@ -9,16 +8,16 @@ function changeDirectory(){
     if [[ -n "$newFolder" && "$newFolder" != "$default" ]] ; then
         cd "$newFolder"
     else
-        cd "$DIR"
+        cd "$WS_DIR"
     fi
 }
 
 function listFolders(){
-    local list=$(ls $DIR)
+    local list=$(ls $WS_DIR)
     COMPREPLY=()
 
     COMPREPLY=( $( compgen -W "$list" -- $1 ) )
-    FOLDER=$DIR$COMPREPLY
+    FOLDER=$WS_DIR$COMPREPLY
 }
 
 function _complete(){
@@ -27,17 +26,21 @@ function _complete(){
     CUR=${COMP_WORDS[COMP_CWORD]}
     PREV=${COMP_WORDS[COMP_CWORD-1]}
 
-    if [[ -n $PREV ]] ; then
+    if [[ -n "$PREV" ]] ; then
         case "$PREV" in
             *)
-                listFolders $CUR
+                listFolders "$CUR"
             ;;
         esac
     fi
 }
 
 function ws(){
-    changeDirectory $FOLDER $DIR
+    changeDirectory "$FOLDER" "$WS_DIR"
 }
 
-complete -F _complete ws
+if [[ -n "$WS_DIR" ]] ; then
+  complete -F _complete ws
+else
+  echo "Set your absolute project path to WS_DIR"
+fi

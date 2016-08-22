@@ -12,5 +12,8 @@ In bash file add:
 ```
 
 ## Run
-1. Change your worspace in the file
+1. Add your absolute project path to WS_DIR in bash_profile
+```
+WS_DIR="/Users/home/projects/"
+```
 2. type ws <TAB>
