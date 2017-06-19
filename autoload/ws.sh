@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 FOLDER=""
 
 function changeDirectory(){
-    local newFolder=$1
-    local default=$2
-    if [[ -n "$newFolder" && "$newFolder" != "$default" ]] ; then
+    local newFolder="$1"
+
+    if [[ -d "$newFolder" && -n "$newFolder" && "$newFolder" != "$WS_DIR" ]] ; then
         cd "$newFolder"
     else
         cd "$WS_DIR"
@@ -13,18 +13,19 @@ function changeDirectory(){
 }
 
 function listFolders(){
-    local list=$(ls $WS_DIR)
+    local list
+
+    list=$(ls "$WS_DIR")
     COMPREPLY=()
 
-    COMPREPLY=( $( compgen -W "$list" -- $1 ) )
-    FOLDER=$WS_DIR$COMPREPLY
+    COMPREPLY=( $( compgen -W "$list" -- "$1" ) )
+    FOLDER="$WS_DIR$COMPREPLY"
 }
 
 function _complete(){
-    local list=""
+    local CUR=${COMP_WORDS[COMP_CWORD]}
+    local PREV=${COMP_WORDS[COMP_CWORD-1]}
 
-    CUR=${COMP_WORDS[COMP_CWORD]}
-    PREV=${COMP_WORDS[COMP_CWORD-1]}
 
     if [[ -n "$PREV" ]] ; then
         case "$PREV" in
@@ -36,7 +37,7 @@ function _complete(){
 }
 
 function ws(){
-    changeDirectory "$FOLDER" "$WS_DIR"
+    changeDirectory "$FOLDER"
 }
 
 if [[ -n "$WS_DIR" ]] ; then
