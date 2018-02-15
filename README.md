@@ -4,16 +4,18 @@ ws
 Script takes you to your workspace and lets you tab complete.
 
 ## Setup
-In bash file add: 
 
-
+1. Source file 
 ```bash
-    source ws.sh
+source ws.sh
 ```
-
-## Run
-1. Add your absolute project path to WS_DIR in bash_profile
+2. Add your absolute project path to WS_DIR in bash_profile
 ```
 WS_DIR="/Users/home/projects/"
 ```
-2. type ws <TAB>
+> multiple directories separated by space
+
+## Run
+```
+$ ws <TAB>
+```
