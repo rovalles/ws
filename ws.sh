@@ -4,6 +4,7 @@ _WS_FOLDER=""
 _WS_CURRENT_INDEX=0
 _WS_PROJECT_LIST=(`echo ${WS_DIR}`)
 _WS_CURRENT_DIR=${_WS_PROJECT_LIST[$_WS_CURRENT_INDEX]}
+
 function _ws_change_directory(){
     cd "$1"
     _WS_FOLDER=""
@@ -47,7 +48,9 @@ function _ws_search(){
     list+=" -h --help "
     COMPREPLY=( $( compgen -W "$list" -- "$1" ) )
 
-    _WS_FOLDER="$_WS_CURRENT_DIR$COMPREPLY"
+    if [[ -n "$1" ]] ; then
+      _WS_FOLDER="$_WS_CURRENT_DIR$COMPREPLY"
+    fi
 }
 
 function _ws_complete(){
@@ -73,8 +76,6 @@ function _ws_submit(){
 
     if [[ "$submit" == "-h" || "$submit" == "--help" ]] ; then
         _ws_help
-    elif [ -n "$submit" ] ; then
-        _ws_change_directory "$_WS_FOLDER"
     else
         _ws_change_directory "$_WS_FOLDER"
     fi
